@@ -1,0 +1,8 @@
+mat-form-field {
+  width: 35%;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}

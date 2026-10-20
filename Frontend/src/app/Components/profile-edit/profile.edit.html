@@ -1,0 +1,111 @@
+<section>
+  <div class="profile-Edit-title">
+    <h1 mat-dialog-title>Editar perfil</h1>
+  </div>
+  
+  <mat-dialog-content>
+    
+      @if (userType === 'Worker') {
+        <form [formGroup]="workerForm" (ngSubmit)="Submit()">
+          <div class="mb-8">
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="name" required />
+              @if (workerForm.controls.name.invalid) {
+                <mat-error>Nombre requerido</mat-error>
+              }
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Mail</mat-label>
+              <input matInput type="text" formControlName="email" required />
+              @if (workerForm.controls.email.invalid) {
+                <mat-error>Mail requerido</mat-error>
+              }
+            </mat-form-field>
+            @if (workerForm.controls.email.value && data.profile && workerForm.controls.email.value !== data.profile.email) {
+              <div class="warning-message">
+                Cambiar el email requerirá que inicies sesión nuevamente.
+              </div>
+            }
+
+            <mat-form-field appearance="outline">
+              <mat-label>Contraseña anterior</mat-label>
+              <input matInput formControlName="oldPassword"/>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Contraseña nueva</mat-label>
+              <input matInput formControlName="newPassword"/>
+            </mat-form-field>
+            @if (workerForm.controls.oldPassword.value || workerForm.controls.newPassword.value) {
+              <div class="warning-message">
+                Cambiar la contraseña requerirá iniciar sesión nuevamente.
+              </div>
+            }
+          </div>
+        </form>
+      } @else if (userType === 'Visitor') {
+        <form [formGroup]="visitorForm" (ngSubmit)="Submit()">
+          <div class="mb-8">
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="name" required />
+              @if (visitorForm.controls.name.invalid) {
+                <mat-error>Nombre requerido</mat-error>
+              }
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput type="text" formControlName="email" required />
+              @if (visitorForm.controls.email.invalid) {
+                <mat-error>Email requerido</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Fecha de nacimiento</mat-label>
+              <input matInput type="date" formControlName ="birthDate" required/>
+              @if (visitorForm.controls.birthDate.invalid) {
+                <mat-error>Fecha de nacimiento requerida</mat-error>
+              }
+            </mat-form-field>
+            @if (visitorForm.controls.email.value && data.profile && visitorForm.controls.email.value !== data.profile.email) {
+              <div class="warning-message">
+                Cambiar el email requerirá que inicies sesión nuevamente.
+              </div>
+            }
+
+            <mat-form-field appearance="outline">
+              <mat-label>Contraseña anterior</mat-label>
+              <input matInput type="password" formControlName="oldPassword"/>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Contraseña nueva</mat-label>
+              <input matInput type="password" formControlName="newPassword"/>
+            </mat-form-field>
+            @if (visitorForm.controls.oldPassword.value || visitorForm.controls.newPassword.value) {
+              <div class="warning-message">
+                Cambiar la contraseña requerirá iniciar sesión nuevamente.
+              </div>
+            }
+          </div>
+        </form>
+      }
+      @if (error && !success) {
+        <div class="mt-12 error-message">
+          {{ error }}
+        </div>
+      }
+      @if (success && !error) {
+        <div class="mt-12 success-message">
+          Información editada exitosamente.
+        </div>
+      }
+    
+    
+    <button mat-button (click)="closeDialog()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="Submit()">Guardar</button>
+
+  </mat-dialog-content>
+</section>

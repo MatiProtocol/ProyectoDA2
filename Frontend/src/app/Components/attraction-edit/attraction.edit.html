@@ -1,0 +1,67 @@
+<section>
+  <div class="attraction-Edit-title">
+    <h1 mat-dialog-title>Editar atracción</h1>
+  </div>
+
+  <mat-dialog-content>
+    <form [formGroup]="form" (ngSubmit)="Submit()">  
+      <div class="mb-8">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="name" required />
+          @if (form.controls.name.invalid) {
+            <mat-error>Nombre requerido</mat-error>
+          }
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo</mat-label>
+          <input matInput type="text" formControlName="type" required />
+          @if (form.controls.type.invalid) {
+            <mat-error>Tipo requerido</mat-error>
+          }
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Edad minima</mat-label>
+          <input matInput type="number" formControlName="minAge" required />
+          @if (form.controls.minAge.invalid) {
+            <mat-error>Edad minima requerida</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Capacidad maxima</mat-label>
+          <input matInput type="number" formControlName="maxCapacity" required />
+          @if (form.controls.maxCapacity.invalid) {
+            <mat-error>Capacidad maxima requerida</mat-error>
+          }
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>descripción</mat-label>
+          <textarea matInput formControlName="description" required></textarea>
+          @if (form.controls.description.invalid) {
+            <mat-error>Descripción requerida</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </form>
+    @if (error()) {
+      <div class="mt-12 error-message">
+        {{ error() }}
+      </div>
+    }
+    @if (success()) {
+      <div class="mt-12 success-message">
+        Atracción Editada exitosamente.
+      </div>
+    }
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button (click)="onCancel()" [disabled]="loading()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="Submit()" [disabled]="loading()">
+      {{ loading() ? 'Guardando...' : 'Guardar' }}
+    </button>
+  </mat-dialog-actions>
+</section>

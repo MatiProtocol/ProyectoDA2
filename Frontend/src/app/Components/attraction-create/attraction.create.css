@@ -1,0 +1,23 @@
+mat-form-field {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+mat-card {
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+mat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+textarea[matInput] {
+  min-height: 100px;
+  max-height: 300px;
+  resize: vertical;
+}
+

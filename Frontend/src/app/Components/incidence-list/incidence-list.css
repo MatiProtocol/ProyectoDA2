@@ -1,0 +1,11 @@
+.mb-4 {
+  margin-bottom: 4%;
+  padding: 1%;
+}
+
+.align-right {
+    margin-left: 184px;
+}
+.align-right-disabled {
+    margin-left: 173px;
+}

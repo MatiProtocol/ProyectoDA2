@@ -1,0 +1,90 @@
+@if(loading()) {
+  <div class="loading-container">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+} @else {
+  <div class="redeem-dialog">
+    <h2 mat-dialog-title>Canjear Recompensa</h2>
+    <mat-dialog-content>
+      <div class="reward-details">
+        <h3>{{ data.reward.name }}</h3>
+        <p class="description">{{ data.reward.description }}</p>
+        
+        <div class="info-grid">
+          <div class="info-item">
+            <mat-icon>stars</mat-icon>
+            <div>
+              <span class="label">Costo</span>
+              <span class="value">{{ data.reward.pointsCost }} puntos</span>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <mat-icon>inventory_2</mat-icon>
+            <div>
+              <span class="label">Disponibles</span>
+              <span class="value">{{ data.reward.availableQuantity }}</span>
+            </div>
+          </div>
+
+          @if(data.reward.requiredMembershipLevel) {
+            <div class="info-item">
+              <mat-icon>workspace_premium</mat-icon>
+              <div>
+                <span class="label">Membresía</span>
+                <span class="value">{{ data.reward.requiredMembershipLevel }}</span>
+              </div>
+            </div>
+          }
+        </div>
+
+        @if(visitorPoints() !== null) {
+          <div class="points-info">
+            <div class="current-points">
+              <span class="label">Tus puntos actuales:</span>
+              <span class="value">{{ visitorPoints() }}</span>
+            </div>
+            @if(visitorPoints()! >= data.reward.pointsCost) {
+              <div class="points-after">
+                <span class="label">Puntos después del canje:</span>
+                <span class="value">{{ visitorPoints()! - data.reward.pointsCost }}</span>
+              </div>
+            }
+          </div>
+        }
+
+        @if(canRedeem()) {
+          <div class="success-message">
+            ✓ Puedes canjear esta recompensa
+          </div>
+        } @else {
+          <div class="warning-message">
+            {{ validationMessage() }}
+          </div>
+        }
+      </div>
+
+      @if (error()) {
+        <div class="error-message">
+          {{ error() }}
+        </div>
+      }
+      @if(success()) {
+        <div class="success-message-full">
+          {{ success() }}
+        </div>
+      }
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close type="button">Cancelar</button>
+      <button 
+        mat-raised-button 
+        color="primary" 
+        (click)="Redeem()" 
+        [disabled]="!canRedeem() || loading() || success()">
+        Canjear
+      </button>
+    </mat-dialog-actions>
+  </div>
+}

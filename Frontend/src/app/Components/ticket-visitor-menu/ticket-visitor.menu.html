@@ -1,0 +1,42 @@
+<app-side-nav-bar>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Comprar Ticket</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      @if(!loading() ) {
+        <form>
+          <mat-form-field>
+            <mat-label>Evento</mat-label>
+            <input type="text" matInput [formControl]="control" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              @for (option of filteredOptions | async; track option) {
+                <mat-option [value]="option">{{option.name}}</mat-option>
+              }
+            </mat-autocomplete>
+            <mat-hint>Seleccione un evento solo si quiere que el ticket sea especal</mat-hint>
+          </mat-form-field>
+        </form>
+      } @else {
+        <div class="loading-state">
+          <mat-spinner diameter="40"></mat-spinner>
+          <span>Cargando atracciones</span>
+        </div>
+      } 
+      @if (error() ) {
+        <div class="error-message">
+          {{ error() }}
+        </div>
+      } 
+      @if (success()) {
+        <div class="success-message">
+          {{ success() }}
+        </div>
+      } 
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="BuyTicket()">Comprar Ticket</button>
+    </mat-card-actions>
+  </mat-card>
+</app-side-nav-bar>

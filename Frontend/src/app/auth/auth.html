@@ -1,0 +1,49 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Login</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="Submit()">  
+      <div >
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" required />
+          @if (form.controls.email.invalid) {
+            <mat-error>Email inválido</mat-error>
+          }
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required />
+          @if (form.controls.password.invalid) {
+            <mat-error>Password requerido</mat-error>
+          }
+        </mat-form-field>
+        @if (error()) {
+          <div class="error-message">
+            {{ error() }}
+          </div>
+        }
+      </div>
+
+      <div>
+        <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid || loading()">
+          {{ loading() ? 'Ingresando...' : 'Ingresar como' }}
+        </button>
+        <mat-radio-group formControlName="role" aria-label="Rol">
+          <mat-radio-button value="visitor">Visitor</mat-radio-button>
+          <mat-radio-button value="worker">Worker</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </form>
+    <mat-divider></mat-divider>
+    <div class="register">
+      <p>¿No tienes una cuenta?</p>
+      <button mat-flat-button color="primary" type="button" (click)="navigateToRegister()">
+          Registrarse
+        </button>
+    </div>
+  </mat-card-content>
+</mat-card>

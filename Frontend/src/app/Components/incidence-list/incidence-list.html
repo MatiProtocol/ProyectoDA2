@@ -1,0 +1,43 @@
+<section>
+    <div class="datetime-title">
+        <h1 mat-dialog-title>Lista de incidencias</h1>
+    </div>
+
+    <mat-dialog-content>
+        @if (incidences.length > 0) {
+            @for (incidence of incidences; track incidence.id) {
+            <mat-card class="mb-4 p-1">
+                <mat-card-title>Incidencia ID: {{ incidence.id }}</mat-card-title>
+                <mat-card-content>
+                    <p><strong>Descripción:</strong> {{ incidence.description }}</p>
+                    @if(incidence.isMaintenance){      
+                        <p><strong>Es un mantenimiento programado</strong></p>
+                        <p><strong>Fecha de inicio:</strong> {{ incidence.startDate | date: "dd/MM/yyyy" }}</p>
+                        <p><strong>Hora de comienzo:</strong> {{ incidence.startTime }}</p>
+                        <p><strong>Duración:</strong> {{ incidence.duration }} horas</p>
+                    }@else {
+                        <p><strong>No es un mantenimiento programado</strong></p>
+                    }
+                    <div>
+                        @if(incidence.active) {
+                            <strong>Estado:</strong> Activa
+                            <button mat-raised-button color="accent" (click)="deactivateIncidence(incidence.id)" class="align-right">Desactivar</button>
+                        } @else {
+                            <strong>Estado:</strong> Inactiva
+                            <button mat-raised-button disabled class="align-right-disabled">Desactivar</button>
+                        }
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        }
+        } @else {
+            <p>No hay incidencias para esta atracción.</p> 
+        }
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button mat-dialog-close>Cerrar</button>
+        <button mat-icon-button (click)="onIncidenceAddDialog(data.attraction!.id)" aria-label="view">
+                <mat-icon>library_add</mat-icon>
+        </button>
+    </mat-dialog-actions>
+</section>

@@ -1,0 +1,85 @@
+<section>
+  <form [formGroup]="form" (ngSubmit)="Submit()">  
+    <div class="datetime-title">
+      <h1 mat-dialog-title>Crear evento especial</h1>
+    </div>
+    <mat-dialog-content>
+      <div class="mb-8">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="name" required />
+          @if (form.controls.name.invalid) {
+            <mat-error>Nombre requerido</mat-error>
+          }
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha</mat-label>
+          <input matInput type="date" formControlName="date" required />
+          @if (form.controls.date.invalid) {
+            <mat-error>Fecha requerida</mat-error>
+          }
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Hora de inicio</mat-label>
+          <input matInput type="time" formControlName="startTime" required />
+          @if (form.controls.startTime.invalid) {
+            <mat-error>Hora de inicio requerida</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Hora de finalizacion</mat-label>
+          <input matInput type="time" formControlName="endTime" required />
+          @if (form.controls.endTime.invalid) {
+            <mat-error>Hora de finalizacion requerida</mat-error>
+          }
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Capacidad maxima</mat-label>
+          <input matInput type="number" formControlName="maxCapacity" required />
+          @if (form.controls.maxCapacity.invalid) {
+            <mat-error>Capacidad maxima requerida</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Costo adicional</mat-label>
+          <input matInput type="number" formControlName="additionalCost" required />
+          @if (form.controls.additionalCost.invalid) {
+            <mat-error>Costo adicional requerido</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>ids de attracciones</mat-label>
+          <input matInput type="text" formControlName="idToAdd" />
+          @if (form.controls.idToAdd.invalid) {
+            <mat-error>IdsToAdd requerido</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      @if (error() && !success()) {
+        <div class="error-message">
+          {{ error() }}
+        </div>
+      }
+      @if (success()) {
+        <div class="success-message">
+          Evento especial creado exitosamente.
+        </div>
+      } 
+    </mat-dialog-content>
+    
+    <mat-dialog-actions>
+      <div class="mt-8">
+        <button mat-button (click)="onCancel()" [disabled]="loading()">Cancelar</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid || loading()">
+          {{ loading() ? 'Creando...' : 'Crear' }}
+        </button>
+      </div>
+    </mat-dialog-actions>
+  </form>
+</section>

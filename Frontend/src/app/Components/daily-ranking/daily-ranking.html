@@ -1,0 +1,41 @@
+<app-side-nav-bar>
+    @if (error()) {
+		<div class="error">
+			{{ error() }}
+		</div>
+	} @else if (!loading()) {
+        <div class="table-header">
+            <h2>Ranking Diario de Visitantes</h2>
+            <button mat-raised-button color="primary" (click)="LoadData()">
+            <mat-icon aria-hidden="false" aria-label="refresh icon" fontIcon="refresh" ></mat-icon>
+               Refrescar
+            </button>
+        </div>
+        <div class="table-body">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z2 full-width-table">
+                <ng-container matColumnDef="name">  
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                    <td mat-cell *matCellDef="let element">{{ element.visitorName }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="todayPoints">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Puntos Hoy</th>
+                    <td mat-cell *matCellDef="let element">{{ element.points }}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Posición</th>
+                    <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="['name', 'todayPoints', 'position']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['name', 'todayPoints', 'position'];"></tr>
+            </table>
+        </div>
+    } @else {
+        <div class="loading-state">
+            <mat-spinner></mat-spinner>
+            <span>Cargando atracciones</span>
+        </div>
+    }
+</app-side-nav-bar>

@@ -1,0 +1,32 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="app-sidenav" mode="side" [opened]="true">
+    <mat-toolbar color="primary">Menú</mat-toolbar>
+    <mat-nav-list>
+      @for (item of menuItems; track item.route) {
+        <a mat-list-item (click)="onNavigate(item)">
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.label }}</span>
+        </a>
+      }
+      <a mat-list-item (click)="onLogout()">
+        <mat-icon matListItemIcon>logout</mat-icon>
+        <span matListItemTitle>Cerrar sesión</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="top-toolbar">
+      <button mat-icon-button (click)="drawer.toggle()" class="menu-button" aria-label="Toggle menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <button mat-icon-button (click)="onSettings()" class="menu-button" aria-label="Open settings">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

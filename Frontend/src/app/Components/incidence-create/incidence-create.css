@@ -1,0 +1,14 @@
+textarea[matInput] {
+  min-height: 100px;
+  max-height: 300px;
+  resize: vertical;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.mb-4 {
+  margin-bottom: 4%;
+}

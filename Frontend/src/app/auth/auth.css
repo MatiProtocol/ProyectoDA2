@@ -1,0 +1,27 @@
+:host {
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  box-sizing: border-box;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+mat-card-title {
+  margin-bottom: 8px;
+}
+
+mat-card {
+  margin: 20px auto;
+}
+
+.error-message {
+  margin-bottom: 16px;
+}
+
+mat-divider{
+  margin: 4%;
+}

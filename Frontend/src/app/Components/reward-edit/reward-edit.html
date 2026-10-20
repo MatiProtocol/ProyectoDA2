@@ -1,0 +1,72 @@
+@if(loading()) {
+  <div class="loading-container">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+} @else {
+  <form [formGroup]="form" (ngSubmit)="Submit()">
+    <h2 mat-dialog-title>Editar Recompensa</h2>
+    <mat-dialog-content>
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name" required/>
+        @if (form.controls.name.invalid && form.controls.name.touched) {
+          <mat-error>El nombre es requerido</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput formControlName="description" rows="3" required></textarea>
+        @if (form.controls.description.invalid && form.controls.description.touched) {
+          <mat-error>La descripción es requerida</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Costo en Puntos</mat-label>
+        <input matInput type="number" formControlName="pointsCost" required min="1"/>
+        @if (form.controls.pointsCost.invalid && form.controls.pointsCost.touched) {
+          <mat-error>El costo debe ser mayor a 0</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cantidad Disponible</mat-label>
+        <input matInput type="number" formControlName="availableQuantity" required min="0"/>
+        @if (form.controls.availableQuantity.invalid && form.controls.availableQuantity.touched) {
+          <mat-error>La cantidad debe ser mayor o igual a 0</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Membresía Requerida</mat-label>
+        <mat-select formControlName="requiredMembershipLevel">
+          <mat-option [value]="null">Todas</mat-option>
+          <mat-option value="Standar">Standar</mat-option>
+          <mat-option value="Premium">Premium</mat-option>
+          <mat-option value="VIP">VIP</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-checkbox formControlName="active">Activa</mat-checkbox>
+
+      @if (error()) {
+        <div class="error-message">
+          {{ error() }}
+        </div>
+      }
+      @if(success()) {
+        <div class="success-message">
+          {{ success() }}
+        </div>
+      }
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close type="button">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading()">
+        Guardar
+      </button>
+    </mat-dialog-actions>
+  </form>
+}

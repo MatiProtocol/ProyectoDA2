@@ -1,0 +1,127 @@
+<app-side-nav-bar>
+  @if (!loading()) {
+    @if (error()) {
+      <div class="error">
+        {{ error() }}
+      </div>
+    } @else {
+      <div class="history-container">
+        <div class="header">
+          <h2>Historial de Puntuación</h2>
+          <div class="header-actions">
+            <button mat-raised-button color="primary" (click)="LoadData()">
+              <mat-icon aria-hidden="false" aria-label="refresh icon" fontIcon="refresh"></mat-icon>
+              Refrescar
+            </button>
+            <button mat-raised-button color="accent" (click)="onFilterDialog()">
+              <mat-icon aria-hidden="false" aria-label="filter icon" fontIcon="filter_list"></mat-icon>
+              Filtrar por Fecha
+            </button>
+          </div>
+        </div>
+
+        @if(summary()) {
+          <div class="summary-cards">
+            <mat-card class="summary-card">
+              <mat-card-content>
+                <div class="summary-icon earned">
+                  <mat-icon>trending_up</mat-icon>
+                </div>
+                <div class="summary-info">
+                  <span class="summary-label">Total Ganado</span>
+                  <span class="summary-value earned">{{ summary()!.totalPointsEarned }}</span>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="summary-card">
+              <mat-card-content>
+                <div class="summary-icon spent">
+                  <mat-icon>trending_down</mat-icon>
+                </div>
+                <div class="summary-info">
+                  <span class="summary-label">Total Gastado</span>
+                  <span class="summary-value spent">{{ summary()!.totalPointsSpent }}</span>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="summary-card">
+              <mat-card-content>
+                <div class="summary-icon balance">
+                  <mat-icon>account_balance_wallet</mat-icon>
+                </div>
+                <div class="summary-info">
+                  <span class="summary-label">Balance Actual</span>
+                  <span class="summary-value balance">{{ summary()!.currentBalance }}</span>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="summary-card">
+              <mat-card-content>
+                <div class="summary-icon today">
+                  <mat-icon>today</mat-icon>
+                </div>
+                <div class="summary-info">
+                  <span class="summary-label">Puntos Hoy</span>
+                  <span class="summary-value today">{{ summary()!.todayPoints }}</span>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        }
+
+        @if(historyData().length === 0) {
+          <mat-card class="empty-state">
+            <mat-card-content>
+              <mat-icon class="empty-icon">history</mat-icon>
+              <h3>No hay historial de puntos</h3>
+              <p>Cuando acumules o gastes puntos, aparecerán aquí</p>
+            </mat-card-content>
+          </mat-card>
+        } @else {
+          <div class="timeline-container">
+            @for(entry of historyData(); track entry.id) {
+              <div class="timeline-item" [class.earned]="entry.points > 0" [class.spent]="entry.points < 0">
+                <div class="timeline-marker">
+                  <mat-icon>{{ getOriginIcon(entry.origin) }}</mat-icon>
+                </div>
+                <mat-card class="timeline-content">
+                  <mat-card-header>
+                    <div class="timeline-header">
+                      <div class="timeline-title">
+                        <h3>{{ entry.description }}</h3>
+                        <span class="timeline-origin">{{ getOriginLabel(entry.origin) }}</span>
+                      </div>
+                      <div class="timeline-points" [class.positive]="entry.points > 0" [class.negative]="entry.points < 0">
+                        {{ entry.points > 0 ? '+' : '' }}{{ entry.points }}
+                      </div>
+                    </div>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <div class="timeline-details">
+                      <div class="detail-item">
+                        <mat-icon>event</mat-icon>
+                        <span>{{ entry.transactionDate | date:'dd/MM/yyyy HH:mm' }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <mat-icon>psychology</mat-icon>
+                        <span>Estrategia: {{ entry.activeStrategy }}</span>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  } @else {
+    <div class="loading-state">
+      <mat-spinner diameter="40"></mat-spinner>
+      <span>Cargando historial...</span>
+    </div>
+  }
+</app-side-nav-bar>

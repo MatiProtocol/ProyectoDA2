@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Visitor Tickets</h2>
+
+<div class="tickets-container">
+  @for(ticket of tickets; track ticket.ticketId) {
+    <mat-card id="{{ticket.ticketId}}" class="ticket-card">
+      <mat-card-content>
+        <p><strong>Tipo de ticket:</strong> {{ticket.ticketType}}</p>
+        <p><strong>QR:</strong> {{ticket.qr}}</p>
+        <p><strong>Fecha:</strong> {{ticket.date | date:'dd/MM/yyyy'}}</p>
+        @if(ticket.consumed){
+          <p><strong>Consumido:</strong> Si</p>
+        } @else {
+          <p><strong>Consumido:</strong> No </p>
+        }
+        @if(ticket.specialEventName != null){
+          <p><strong>Evento Especial:</strong> {{ticket.specialEventName}}</p>
+        }
+      </mat-card-content>
+    </mat-card>
+  } @empty {
+    <p>Sin tickets disponibles.</p>
+  }
+</div>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

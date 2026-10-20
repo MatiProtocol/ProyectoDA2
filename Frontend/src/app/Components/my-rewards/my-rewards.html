@@ -1,0 +1,65 @@
+<app-side-nav-bar>
+  @if (!loading()) {
+    @if (error()) {
+      <div class="error">
+        {{ error() }}
+      </div>
+    } @else {
+      <div class="rewards-container">
+        <div class="header">
+          <h2>Mis Recompensas Canjeadas</h2>
+          <button mat-raised-button color="primary" (click)="LoadData()">
+            <mat-icon aria-hidden="false" aria-label="refresh icon" fontIcon="refresh"></mat-icon>
+            Refrescar
+          </button>
+        </div>
+
+        @if(redemptions().length === 0) {
+          <mat-card class="empty-state">
+            <mat-card-content>
+              <mat-icon class="empty-icon">redeem</mat-icon>
+              <h3>No tienes recompensas canjeadas</h3>
+              <p>Acumula puntos visitando atracciones y canjea increíbles recompensas</p>
+              <button mat-raised-button color="accent" routerLink="/rewards">
+                Ver Catálogo de Recompensas
+              </button>
+            </mat-card-content>
+          </mat-card>
+        } @else {
+          <div class="redemptions-grid">
+            @for(redemption of redemptions(); track redemption.id) {
+              <mat-card class="redemption-card">
+                <mat-card-header>
+                  <mat-card-title>Recompensa ID: {{ redemption.rewardId }}</mat-card-title>
+                  <mat-card-subtitle>
+                    {{ redemption.redemptionDate | date:'dd/MM/yyyy HH:mm' }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <p class="description">Recompensa canjeada</p>
+                  
+                  <div class="redemption-details">
+                    <div class="detail-item">
+                      <mat-icon>stars</mat-icon>
+                      <span>{{ redemption.pointsSpent }} puntos</span>
+                    </div>
+                    
+                    <div class="status-badge" [ngClass]="getStatusClass(redemption.status)">
+                      <mat-icon>{{ getStatusIcon(redemption.status) }}</mat-icon>
+                      <span>{{ getStatusText(redemption.status) }}</span>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            }
+          </div>
+        }
+      </div>
+    }
+  } @else {
+    <div class="loading-state">
+      <mat-spinner diameter="40"></mat-spinner>
+      <span>Cargando tus recompensas...</span>
+    </div>
+  }
+</app-side-nav-bar>

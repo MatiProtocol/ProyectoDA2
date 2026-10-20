@@ -1,0 +1,39 @@
+<section>
+  <div class="workerRoleAdministration-title">
+    <h2 mat-dialog-title>Cambiar roles del trabajador</h2>
+  </div>
+  <mat-card-content>
+
+  @if(!loading() ) {
+    <form>
+      <mat-form-field appearance="outline">
+        <mat-label>Selecionar rol/es</mat-label>
+        <input type="text" matInput [formControl]="control" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          @for (option of filteredOptions | async; track option) {
+            <mat-option [value]="option">{{option}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  } @else {
+    <div class="loading-state">
+      <mat-spinner diameter="40"></mat-spinner>
+      <span>Cargando opciones</span>
+    </div>
+  } 
+</mat-card-content>
+  @if (error() ) {
+    <div class="error-message">
+      {{ error() }}
+    </div>
+  } 
+  @if (success()) {
+    <div class="success-message">
+      Rol actualizado correctamente.
+    </div>
+  } 
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="SaveChanges()">Guardar cambios</button>
+  </mat-card-actions>
+</section>

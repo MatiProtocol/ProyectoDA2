@@ -1,0 +1,9 @@
+.button-settings {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.mat-mdc-dialog-content {
+  overflow: hidden;
+}

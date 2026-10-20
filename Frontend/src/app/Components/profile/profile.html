@@ -1,0 +1,42 @@
+<app-side-nav-bar>
+    <div class="profile-content">
+        <h2>Perfil de Usuario</h2>
+
+        @if (error) {
+        <div class="error">{{ error }}</div>
+        }
+
+        <mat-card>
+            <mat-card-content>
+        @if (workerProfile && !loading) {
+            <mat-list>
+                <mat-divider></mat-divider>
+                <mat-list-item><strong>Nombre:</strong> {{ workerProfile.name }}</mat-list-item>
+                <mat-list-item><strong>Email:</strong> {{ workerProfile.email }}</mat-list-item>
+                <mat-list-item><strong>Rol(es):</strong> {{ workerProfile.roles }}</mat-list-item>
+                <mat-divider></mat-divider>
+            </mat-list>                       
+            <button mat-raised-button class="mt-4" (click)="openEditModal('Worker', workerProfile)" aria-label="Editar">Editar</button>
+        } @else if (visitorProfile && !loading) {
+        
+            <mat-list>
+                <mat-divider></mat-divider>
+                <mat-list-item><strong>Nombre:</strong> {{ visitorProfile.name }}</mat-list-item>
+                <mat-list-item><strong>Email:</strong> {{ visitorProfile.email }}</mat-list-item>
+                <mat-list-item><strong>Fecha de nacimiento:</strong> {{ visitorProfile.birthDate | date:'dd/MM/yyyy' }}</mat-list-item>
+                <mat-list-item><strong>Puntos:</strong> {{ visitorProfile.points }}</mat-list-item>
+                <mat-list-item><strong>Membresía:</strong> {{ visitorProfile.membership }}</mat-list-item>                        
+                <mat-divider></mat-divider>
+            </mat-list>
+            <button mat-raised-button class="mt-4" (click)="openEditModal('Visitor', visitorProfile)" aria-label="Editar">Editar</button>
+        } @else {
+            <div class="loading-state">
+                <mat-spinner diameter="40"></mat-spinner>
+                <span>Cargando perfil</span>
+            </div>
+        }
+            </mat-card-content>
+        </mat-card>
+        
+    </div>
+</app-side-nav-bar>

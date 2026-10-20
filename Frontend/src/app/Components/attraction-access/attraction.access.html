@@ -1,0 +1,43 @@
+@if(loading()) {
+  <div class="loading-container">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+} @else {
+  <form [formGroup]="form" (ngSubmit)="Submit()"> 
+    <h2 mat-dialog-title>Acceso a Atraccion</h2>
+    <mat-dialog-content>
+      <mat-form-field appearance="outline">
+        <mat-label>Codigo</mat-label>
+        <input class="input-code" matInput formControlName="code" required/>
+        @if (form.controls.code.invalid) {
+          <mat-error>Código {{ form.value.typeCode }} inválido</mat-error>
+        }
+        <mat-hint>Ingrese el codigo {{ form.value.typeCode }}</mat-hint>
+      </mat-form-field>
+      @if (error()) {
+        <div class="error-message">
+          {{ error() }}
+        </div>
+      }
+      @if(success()){
+        <div class="success-message">
+          {{ success() }}
+        </div>
+      }
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <div class="actions-group">
+        <div class="radio-buttons-actions">
+          <mat-radio-group formControlName="typeCode" aria-label="code-option">
+            <mat-radio-button value="NFC">NFC</mat-radio-button>
+            <mat-radio-button value="QR">QR</mat-radio-button>
+          </mat-radio-group>
+        </div>
+          <div class="buttons-actions">
+            <button mat-button mat-dialog-close>Cancelar</button>
+            <button mat-button cdkFocusInitial type="submit">Aceptar</button>
+          </div>
+      </div>
+    </mat-dialog-actions>
+  </form>
+}

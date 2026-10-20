@@ -1,0 +1,39 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Cambiar estrategia</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    @if(!loading() ) {
+      <form>
+        <mat-form-field appearance="outline">
+          <mat-label>Estrategia</mat-label>
+          <input type="text" matInput [formControl]="control" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            @for (option of filteredOptions | async; track option) {
+              <mat-option [value]="option">{{option}}</mat-option>
+            }
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+    } @else {
+      <div class="loading-state">
+        <mat-spinner diameter="40"></mat-spinner>
+        <span>Cargando atracciones</span>
+      </div>
+    } 
+    @if (error() ) {
+      <div class="error-message">
+        {{ error() }}
+      </div>
+    } 
+    @if (success()) {
+      <div class="success-message">
+        {{ success() }}
+      </div>
+    } 
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="SaveStrategy()">Guardar estrategia</button>
+  </mat-card-actions>
+</mat-card>

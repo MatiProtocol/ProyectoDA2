@@ -1,0 +1,10 @@
+.unauthorized {
+  margin: 72px auto;
+  max-width: 560px;
+  padding: 24px;
+  text-align: center;
+}
+
+.unauthorized h1 {
+  margin-bottom: 12px;
+}

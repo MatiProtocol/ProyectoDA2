@@ -1,0 +1,39 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.app-sidenav {
+  width: 250px;
+}
+
+.top-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.content {
+  padding: 16px;
+}
+
+.menu-button {
+  display: inline-flex;
+  margin-right: 8px;
+}
+
+@media (max-width: 800px) {
+  .app-sidenav {
+    width: 220px;
+  }
+}
+
+a[matListItem] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
